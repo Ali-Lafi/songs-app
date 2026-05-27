@@ -1,2 +1,10 @@
 packages:
   - 'packages/*'
+  - 'api'
+allowBuilds:
+  '@nestjs/core': set this to true or false
+  '@parcel/watcher': set this to true or false
+  '@swc/core': true
+  less: set this to true or false
+  nx: true
+  unrs-resolver: true
