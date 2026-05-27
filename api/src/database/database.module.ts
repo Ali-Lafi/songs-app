@@ -3,7 +3,8 @@ import { DATABASE_CONNECTION } from './database-connection';
 import { ConfigService } from '@nestjs/config';
 import { Pool } from 'pg';
 import { drizzle } from 'drizzle-orm/singlestore';
-import * as usersSchema from '../users/infrastructure/users.schema'
+import * as usersSchema from '../users/infrastructure/schema'
+import * as songsSchema from '../songs/infrastructure/schema'
 
 @Module({
     providers: [
@@ -14,7 +15,8 @@ import * as usersSchema from '../users/infrastructure/users.schema'
             });
             return drizzle(pool,{
                 schema:{
-                    usersSchema
+                    usersSchema,
+                    songsSchema
                 }
             })
         },

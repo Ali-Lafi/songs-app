@@ -20,6 +20,9 @@ importers:
       axios:
         specifier: ^1.6.0
         version: 1.16.0
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.14
@@ -69,6 +72,9 @@ importers:
       '@types/node':
         specifier: 20.19.9
         version: 20.19.9
+      drizzle-kit:
+        specifier: ^0.31.10
+        version: 0.31.10
       eslint:
         specifier: ^9.8.0
         version: 9.39.4(jiti@2.7.0)
