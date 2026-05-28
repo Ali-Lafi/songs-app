@@ -19,7 +19,7 @@ export class DrizzleSongRepository extends SongRepository{
         const {pageNumber, pageSize, search} = params;
         
         const searchQuery = search?
-            or(ilike(schema.songsTable.name, search),ilike(schema.songsTable.singer, search),ilike(schema.songsTable.album, search))
+            or(ilike(schema.songsTable.name,  `%${search}%`),ilike(schema.songsTable.singer, `%${search}%`),ilike(schema.songsTable.album,  `%${search}%`))
             : undefined;
         const offset = pageNumber -1;
         

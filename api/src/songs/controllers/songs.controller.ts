@@ -17,7 +17,13 @@ export class SongsController {
     @Query('pageSize') pageSize = '10',
     @Query('search') search?: string,
   ) {
-    return this.queryBus.execute(new ListSongsQuery({pageNumber:Number(pageNumber), pageSize:Number(pageSize), search}))
+    const parsedPageNumber = Number(pageNumber);
+    const parsedPageSize = Number(pageSize);
+
+    const safePageNumber = (Number.isFinite(parsedPageNumber) && parsedPageNumber>0) ? parsedPageNumber: 1;
+    const safePageSize = (Number.isFinite(parsedPageSize) && parsedPageSize>0) ? parsedPageSize: 10;
+    
+    return this.queryBus.execute(new ListSongsQuery({pageNumber:Number(safePageNumber), pageSize:Number(safePageSize), search}))
   }
 
   @Post()
