@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListSongsQuery } from '../application/queries/list-songs.query';
-import * as songRepository from '../domain/song.repository';
 import { CreateSongCommand } from '../application/commands/create-song.command';
-
+import { createSongSchema } from './validation/create-songs.schema';
+import {z} from 'zod'
 @Controller('songs')
 export class SongsController {
   constructor(
@@ -21,7 +21,10 @@ export class SongsController {
   }
 
   @Post()
-  async create(@Body() body: songRepository.CreateSongData){
-    return this.commandBus.execute(new CreateSongCommand(body));
+  async create(@Body() body: unknown){
+    const request = createSongSchema.safeParse(body);
+    if(!request.success) throw new BadRequestException(z.treeifyError( request.error));
+
+    return this.commandBus.execute(new CreateSongCommand(request.data));
   }
 }
