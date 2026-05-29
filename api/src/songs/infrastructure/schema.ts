@@ -7,5 +7,5 @@ export const songsTable = pgTable('songs',{
     coverImageUrl: text('cover_image_url'),
     album: text('album'),
     duration: text('duration'),
-    createdAt: timestamp('Created_at').defaultNow().notNull()
+    createdAt: timestamp('created_at').defaultNow().notNull()
 })

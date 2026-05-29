@@ -8,4 +8,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: songs_db
-      
+    volumes:
+      - postgres_persistent:/var/lib/postgres/data
+  
+volumes:
+  postgres_persistent:
