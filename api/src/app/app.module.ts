@@ -1,15 +1,20 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from '../database/database.module';
 import { SongsModule } from '../songs/songs.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    isGlobal:true 
-  }), DatabaseModule,
-SongsModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    DatabaseModule,
+    SongsModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

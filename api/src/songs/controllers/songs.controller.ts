@@ -1,9 +1,10 @@
-import { BadRequestException, Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListSongsQuery } from '../application/queries/list-songs.query';
 import { CreateSongCommand } from '../application/commands/create-song.command';
 import { createSongSchema } from './validation/create-songs.schema';
 import {z} from 'zod'
+import { JwtAuthGaurd } from '../../auth/infrastructure/jwt.guard';
 @Controller('songs')
 export class SongsController {
   constructor(
@@ -26,6 +27,7 @@ export class SongsController {
     return this.queryBus.execute(new ListSongsQuery({pageNumber:Number(safePageNumber), pageSize:Number(safePageSize), search}))
   }
 
+  @UseGuards(JwtAuthGaurd)
   @Post()
   async create(@Body() body: unknown){
     const request = createSongSchema.safeParse(body);
