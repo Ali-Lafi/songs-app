@@ -28,7 +28,7 @@ export class LoginHandler implements ICommandHandler<LoginCommand>{
             role: user.role
         });
 
-        return accessToken;
+        return {accessToken:accessToken};
     }
 
 }
