@@ -21,7 +21,7 @@ export class DrizzleSongRepository extends SongRepository{
         const searchQuery = search?
             or(ilike(schema.songsTable.name,  `%${search}%`),ilike(schema.songsTable.singer, `%${search}%`),ilike(schema.songsTable.album,  `%${search}%`))
             : undefined;
-        const offset = pageNumber -1;
+        const offset = (pageNumber -1) * pageSize;
         
         const items = await this.database.select().from(schema.songsTable).where(searchQuery).limit(pageSize).offset(offset);
         const total = await this.database.select({value:count()}).from(schema.songsTable).where(searchQuery);
