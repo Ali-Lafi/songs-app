@@ -58,5 +58,6 @@ Thumbs.db
 # Build outputs
 build
 
-# Local database files 
+# Local database files
 *.sqlite
+vite.config.*.timestamp*
