@@ -1,44 +1,77 @@
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { login } from "../api/auth";
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../api/auth';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Button } from '../components/ui/button';
+import { Label } from '@/components/ui/label';
 
-type LoginPageProps ={
-    onLogin:(token:string)=>void
-}
+type LoginPageProps = {
+  onLogin: (token: string) => void;
+};
 
-export function LoginPage({onLogin}:LoginPageProps){
-    const navigate = useNavigate();
+export function LoginPage({ onLogin }: LoginPageProps) {
+  const navigate = useNavigate();
 
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const loginMutation = useMutation({
-        mutationFn:login,
-        onSuccess:(data)=>{
-            localStorage.setItem('accessToken',data.accessToken);
-            onLogin(data.accessToken)
-            navigate('/admin')
-        }
-    })
+  const loginMutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      localStorage.setItem('accessToken', data.accessToken);
+      onLogin(data.accessToken);
+      navigate('/admin');
+    },
+  });
 
-    return( 
-<div>
-        <h1>Login</h1>
-    <form onSubmit={(event)=>{
-        event.preventDefault();
-        loginMutation.mutate({email,password})
-    }}>
-        <input value={email} onChange={(event)=>setEmail(event.target.value)} placeholder="Email"/>
-        <input value={password} onChange={(event)=>setPassword(event.target.value)} placeholder="Password" type="password"/>
+  return (
+    <div className='flex min-h-[70vh] items-center justify-center'>
+      <Card className='w-full max-w-md'>
+        <CardHeader>
+          <CardTitle className='text-2xl'>Login</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form className='space-y-4'
+            onSubmit={(event) => {
+              event.preventDefault();
+              loginMutation.mutate({ email, password });
+            }}
+          >
+            <div className='space-y-2'>
+              <Label htmlFor='email'>Email</Label>
+            <Input
+            id='email'
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Email"
+            />
+            </div>
 
-        <button type="submit" disabled={loginMutation.isPending}>
-            {loginMutation.isPending? "Logging In...": "Login"}
-        </button>
+             <div className='space-y-2'>
+              <Label htmlFor='password'>Password</Label>
+            <Input
+            id='password'
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Password"
+              type="password"
+            />
+            </div>
+            <Button type="submit" disabled={loginMutation.isPending} className='w-full cursor-pointer shadow-sm' variant='outline'>
+              {loginMutation.isPending ? 'Logging In...' : 'Login'}
+            </Button>
 
-        {loginMutation.isError && <p>Invalid email or password</p>}
-
-    </form>
-</div>
-)
+            {loginMutation.isError && <p className="text-sm text-red-600">Invalid email or password</p>}
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
