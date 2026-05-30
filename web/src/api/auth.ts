@@ -1,7 +1,4 @@
-export type LoginInput={
-    email:string;
-    password:string;
-}
+import type { LoginInput } from '@org/contracts';
 
 export type LoginResponse ={
     accessToken:string;

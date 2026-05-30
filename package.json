@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev":"nx run-many -t serve -p api web"
+    "dev": "nx run-many -t serve -p api web"
   },
   "private": true,
   "devDependencies": {
@@ -38,6 +38,7 @@
     "eslint-plugin-react-hooks": "5.0.0",
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "22.7.2",
     "postcss": "8.4.38",
     "prettier": "^3.8.1",

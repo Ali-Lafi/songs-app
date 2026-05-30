@@ -1,3 +1,5 @@
+import type { CreateSongInput, ListSongsInput } from '@org/contracts';
+
 export type Song = {
     id:number;
     name: string;
@@ -15,15 +17,7 @@ export type SongsResponse={
     pageSize: number;
 }
 
-export type CreateSongInput ={
-    name:string;
-    singer: string;
-    coverImageUrl?:string;
-    album?:string;
-    duration?:string;
-}
-
-export async function getSongs(params:{pageNumber:number; pageSize:number; search?:string}): Promise<SongsResponse>{
+export async function getSongs(params:ListSongsInput): Promise<SongsResponse>{
     const searchParams = new URLSearchParams({pageNumber: String(params.pageNumber), pageSize: String(params.pageSize)});
     if(params.search) searchParams.set('search', params.search)
     

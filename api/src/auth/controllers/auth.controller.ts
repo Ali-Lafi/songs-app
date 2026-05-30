@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
-import { LoginSchema } from './validation/login.schema';
+import { LoginSchema } from '@org/contracts';
 import {z} from 'zod'
 import { LoginCommand } from '../application/login.command';
 

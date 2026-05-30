@@ -29,7 +29,8 @@ export default defineConfig(() => ({
   },
   resolve:{
     alias:{
-      '@':path.resolve(import.meta.dirname,'./src')
+      '@':path.resolve(import.meta.dirname,'./src'),
+      '@org/contracts': path.resolve(import.meta.dirname, '../contracts/src/index.ts',)
     }
   }
 }));
