@@ -44,9 +44,9 @@ export function SongsPage() {
 <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-5'>
 {songsQuery.data?.items.map((song) => (
   <Card key={song.id} className='overflow-hidden'>
-    {song.coverImageUrl && (
-      <img src={song.coverImageUrl} alt={song.name} className='h-48 w-full object-cover'/>
-    )}
+   
+      <img src={song.coverImageUrl || '/no-image.png'}  alt={song.name} className='h-48 w-full object-cover'/>
+    
     <CardContent className='space-y-2 p-4'>
 <h2 className='text-lg font-semibold'>{song.name}</h2>
 <p className='text-sm text-slate-600'>{song.singer}</p>
