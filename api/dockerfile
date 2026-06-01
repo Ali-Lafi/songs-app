@@ -1,0 +1,17 @@
+FROM node:22-alpine AS base
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml nx.json tsconfig.base.json tsconfig.json ./
+COPY api ./api
+COPY contracts ./contracts
+
+RUN corepack enable
+ENV PNPM_IGNORE_SCRIPTS=false
+RUN pnpm install --frozen-lockfile --ignore-scripts
+
+RUN pnpm nx sync
+RUN pnpm nx build contracts
+RUN pnpm nx build api
+EXPOSE 3000
+CMD [ "node","api/dist/main.js" ]

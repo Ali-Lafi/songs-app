@@ -11,5 +11,26 @@ services:
     volumes:
       - postgres_persistent:/var/lib/postgres/data
   
+  api:
+    build:
+      context: .
+      dockerfile: api/dockerfile
+    container_name: songs_api
+    ports:
+    - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres:5432/songs_db
+      JWT_SECRET: SECRet
+    depends_on:
+      - postgres
+  web:
+    build:
+      context: .
+      dockerfile: web/dockerfile
+    container_name: songs_web
+    ports:
+    - "4200:80"
+    depends_on:
+      - api    
 volumes:
   postgres_persistent:

@@ -2,11 +2,11 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { UsersRepository } from "../../users/domain/users.repository";
 import {JwtService} from '@nestjs/jwt'
 import { UnauthorizedException } from "@nestjs/common";
-import * as bcrypt from 'bcryptJS'
+import * as bcrypt from 'bcryptjs'
 
 export class LoginCommand{
     constructor(public readonly email:string, public readonly password:string){}
-}
+} 
 
 @CommandHandler(LoginCommand)
 export class LoginHandler implements ICommandHandler<LoginCommand>{
