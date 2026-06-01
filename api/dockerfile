@@ -14,4 +14,4 @@ RUN pnpm nx sync
 RUN pnpm nx build contracts
 RUN pnpm nx build api
 EXPOSE 3000
-CMD [ "node","api/dist/main.js" ]
+CMD ["sh", "-c", "pnpm tsx api/src/database/seed.ts && node api/dist/main.js"]
