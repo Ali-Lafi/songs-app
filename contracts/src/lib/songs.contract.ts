@@ -13,6 +13,22 @@ export const listSongsSchema = z.object({
   pageSize: z.coerce.number().int().positive().max(50).default(10),
   search: z.string().optional(),
 });
+export const songSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    singer: z.string(),
+    coverImageUrl: z.string().nullable(),
+    album:z.string().nullable(),
+    duration: z.string().nullable(),
+    createdAt: z.date()
+})
+
+export const paginatedSongsSchema = z.object({
+    items: z.array(songSchema),
+    total: z.number(),
+    pageNumber: z.number(),
+    pageSize: z.number()
+})
 
 export type CreateSongInput = z.infer<typeof createSongSchema>;
 export type ListSongsInput = z.infer<typeof listSongsSchema>;

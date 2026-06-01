@@ -5,4 +5,8 @@ export const LoginSchema =z.object({
     password: z.string().min(1,"Password is required")
 })
 
+export const loginResponseSchema = z.object({
+    accessToken: z.string()
+})
+
 export type LoginInput = z.infer<typeof LoginSchema>;

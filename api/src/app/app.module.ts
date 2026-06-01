@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from '../database/database.module';
 import { SongsModule } from '../songs/songs.module';
 import { AuthModule } from '../auth/auth.module';
+import { OrpcModule } from '../orpc/orpc.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from '../auth/auth.module';
     DatabaseModule,
     SongsModule,
     AuthModule,
+    OrpcModule
   ],
   controllers: [AppController],
   providers: [AppService],
