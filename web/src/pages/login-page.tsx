@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { login } from '../api/auth';
 import {
   Card,
@@ -30,6 +30,10 @@ export function LoginPage({ onLogin }: LoginPageProps) {
       navigate('/admin');
     },
   });
+  
+  const [searchParams] = useSearchParams();
+
+  const reason = searchParams.get('reason');
 
   return (
     <div className='flex min-h-[70vh] items-center justify-center'>
@@ -38,6 +42,11 @@ export function LoginPage({ onLogin }: LoginPageProps) {
           <CardTitle className='text-2xl'>Login</CardTitle>
         </CardHeader>
         <CardContent>
+          {reason === 'session-expired' && (
+            <p className="mb-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
+              Your session has expired. Please log in again.
+            </p>
+          )}
           <form className='space-y-4'
             onSubmit={(event) => {
               event.preventDefault();

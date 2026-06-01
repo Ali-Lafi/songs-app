@@ -37,6 +37,14 @@ export async function createSong(input:CreateSongInput):Promise<Song>{
         },
         body: JSON.stringify(input)
     });
+    
+    if(response.status === 401){
+        localStorage.removeItem('accessToken');
+        window.location.href = '/login?reason=session-expired';
+
+        throw new Error('Session Expired')
+    }
+
     if(!response.ok) throw new Error('Failed to create song');
 
     return response.json();
